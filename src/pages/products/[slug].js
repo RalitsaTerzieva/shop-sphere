@@ -11,19 +11,34 @@ export default function ProductDetail({ product }) {
     };
   
     if (!product) {
-      return <div>Product not found.</div>;
+      return <div className="text-center py-10 text-xl">Product not found.</div>;
     }
 
-    return (<div>
-        <article>
-            <section>
-            <h3>{product.fields.name}</h3>
-            <div>{documentToReactComponents(product.fields.description)}</div>
-            <img src={product.fields.image.fields.file.url} width={200} />
-            <button onClick={handleAddToCart}>Add to Cart</button>
-        </section>
-        </article>
-    </div>)
+    return ( 
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+    <article className="p-6">
+      <section>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+          {product.fields.name}
+        </h3>
+        <div className="text-gray-600 mb-6">
+          {documentToReactComponents(product.fields.description)}
+        </div>
+        <img
+          src={product.fields.image.fields.file.url}
+          alt={product.fields.name}
+          className="w-full h-48 object-cover rounded-md mb-4"
+        />
+        <button
+          onClick={handleAddToCart}
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+        >
+          Add to Cart
+        </button>
+      </section>
+    </article>
+  </div>
+  )
 }
 
 export async function getServerSideProps({ params }) {
